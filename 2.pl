@@ -83,6 +83,21 @@ fibList([Head|Tail], Counter, Result):-
     fibList(Tail, Counter, Result).
 
 
+% -------- 3 --------
 
+/*
+    Example:
+        ?- permutation([1,2,3],2,X).
+        X = [1, 2] ;
+        X = [1, 3] ;
+        X = [2, 1] ;
+        X = [2, 3] ;
+        X = [3, 1] ;
+        X = [3, 2].
+*/
 
-    
+permutation(_, 0, []):-!.
+permutation(List, PermutationLength, [Head|Tail]):-
+    select(Head, List, ListTail),
+    NewPermutationLength is PermutationLength - 1,
+    permutation(ListTail, NewPermutationLength, Tail).
