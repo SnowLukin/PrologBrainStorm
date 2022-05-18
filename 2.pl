@@ -95,7 +95,6 @@ fibList([Head|Tail], Counter, Result):-
         X = [3, 1] ;
         X = [3, 2].
 */
- 
 partialPermutation(_, 0, []):-!.
 partialPermutation(List, PermutationLength, [Head|Tail]):-
     select(Head, List, ListTail),
@@ -112,7 +111,6 @@ partialPermutation(List, PermutationLength, [Head|Tail]):-
         X = [3, 1, 2] ;
         X = [3, 2, 1].
 */
-
 permutation(List, Permutation):-
     length(List, Length),
     partialPermutation(List, Length, Permutation).
@@ -125,10 +123,28 @@ permutation(List, Permutation):-
         X = [2, 3] ;
         false.
 */
-
 compromise(_, 0, []):-!.
 compromise([Head|Tail], Length, [Head|ResultListTail]):-
     ResultListLength is Length - 1,
     compromise(Tail, ResultListLength, ResultListTail).
-compromise([_Head|Tail], Length, ResultList):-
+compromise([_|Tail], Length, ResultList):-
     compromise(Tail, Length, ResultList).
+
+/*
+    Example:
+        ?- compromise_rep([1,2,3],2,X).
+        X = [1, 1] ;
+        X = [1, 2] ;
+        X = [1, 3] ;
+        X = [2, 1] ;
+        X = [2, 2] ;
+        X = [2, 3] ;
+        X = [3, 1] ;
+        X = [3, 2] ;
+        X = [3, 3].
+*/
+compromiseWithRepeats(_List, 0, []):-!.
+compromiseWithRepeats(List, CompromiseLength, [Head|ResultListTail]):-
+    member(Head, List),
+    NewCompromiseLength is CompromiseLength - 1,
+    compromiseWithRepeats(List, NewCompromiseLength, ResultListTail).
