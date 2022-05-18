@@ -148,3 +148,10 @@ compromiseWithRepeats(List, CompromiseLength, [Head|ResultListTail]):-
     member(Head, List),
     NewCompromiseLength is CompromiseLength - 1,
     compromiseWithRepeats(List, NewCompromiseLength, ResultListTail).
+
+
+
+/*
+    Special thanks:
+    https://pro-prof.com/forums/topic/permutation_on_prolog
+*/
