@@ -28,21 +28,30 @@
     найти гамильтонов цикл. (или любые задачи на графы из лекции).
 */
 
-% 1
-% x_i = x_(i-1) + x_(i-2)
+% -------- 1 --------
+
+% Recursion bottom-up
 fibUp(Index, Number):- Index < 3, Number is 1, !.
 fibUp(Index, Number):-
-    PreviousIndex is Index - 1, % i - 1
-    PrePreviousIndex is Index - 2, % i - 2
-    fibUp(PreviousIndex, PreviousNumber),  % x_(i-1)
-    fibUp(PrePreviousIndex, PrePreviousNumber),  % x_(i-2)
+    PreviousIndex is Index - 1,
+    PrePreviousIndex is Index - 2,
+    fibUp(PreviousIndex, PreviousNumber),
+    fibUp(PrePreviousIndex, PrePreviousNumber),
     Number is PreviousNumber + PrePreviousNumber, !.
 
-fibDown(0, Number, PreviousNumber, PrePreviousNumber):- Number is PreviousNumber + PrePreviousNumber, !.
-fibDown(Index, Number, PreviousNumber, PrePreviousNumber):-
-    NewPrePreviousNumber is PreviousNumber,
-    NewPreviousNumber is PreviousNumber + PrePreviousNumber,
+% Recursion top-down
+fibDown(0, 0).
+fibDown(1, 1).
+fibDown(Index, Number):-
     NewIndex is Index - 1,
-    fibDown(NewIndex, Number, NewPreviousNumber, NewPrePreviousNumber).
-fibDown(Index, Number):- NewIndex is Index - 2, fibDown(NewIndex, Number, 1, 0), !.
+    fibDown_(0, 1, NewIndex, Number).
+fibDown_(_, Number, 0, Number).
+fibDown_(PrePreviousNumber, PreviousNumber, Index, Number):-
+    NewPreviousNumber is PrePreviousNumber + PreviousNumber,
+    NewIndex is Index - 1,
+    fibDown_(PreviousNumber, NewPreviousNumber, NewIndex, Number).
+
+
+
+
     
