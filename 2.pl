@@ -132,7 +132,7 @@ compromise([_|Tail], Length, ResultList):-
 
 /*
     Example:
-        ?- compromise_rep([1,2,3],2,X).
+        ?- compromiseWithRepeats([1,2,3],2,X).
         X = [1, 1] ;
         X = [1, 2] ;
         X = [1, 3] ;
@@ -143,7 +143,7 @@ compromise([_|Tail], Length, ResultList):-
         X = [3, 2] ;
         X = [3, 3].
 */
-compromiseWithRepeats(_List, 0, []):-!.
+compromiseWithRepeats(_, 0, []):-!.
 compromiseWithRepeats(List, CompromiseLength, [Head|ResultListTail]):-
     member(Head, List),
     NewCompromiseLength is CompromiseLength - 1,
