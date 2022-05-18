@@ -101,3 +101,19 @@ permutation(List, PermutationLength, [Head|Tail]):-
     select(Head, List, ListTail),
     NewPermutationLength is PermutationLength - 1,
     permutation(ListTail, NewPermutationLength, Tail).
+
+/*
+    Example:
+        ?- compromise([1,2,3],2,X).
+        X = [1, 2] ;
+        X = [1, 3] ;
+        X = [2, 3] ;
+        false.
+*/
+
+compromise(_, 0, []):-!.
+compromise([Head|Tail], Length, [Head|ResultListTail]):-
+    ResultListLength is Length - 1,
+    compromise(Tail, ResultListLength, ResultListTail).
+compromise([_Head|Tail], Length, ResultList):-
+    compromise(Tail, Length, ResultList).
