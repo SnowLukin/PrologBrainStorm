@@ -53,7 +53,6 @@ fibDown_(PrePreviousNumber, PreviousNumber, Index, Number):-
 
 % -------- 2 --------
 
-% Fibonacci couple - one of the element is a Fibonacci number and the other one is its index.
 /* Example:
         ?- fibList([1,2,3,4,5,5],Result).
         2, 1
@@ -65,6 +64,7 @@ fibDown_(PrePreviousNumber, PreviousNumber, Index, Number):-
 
 writeCouple(FirstNumber, SecondNumber):- write(FirstNumber), write(', '), writeln(SecondNumber).
 
+% Fibonacci couple - one of the element is a Fibonacci number and the other one is its index.
 amountOfFibCouples([Head|Tail], Number, Result):- amountOfFibCouples([Head|Tail], Number, 0, Result).
 amountOfFibCouples([], _, Counter, Result):- Result is Counter, !.
 amountOfFibCouples([Head|Tail], Number, Counter, Result):-
