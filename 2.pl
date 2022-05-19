@@ -188,12 +188,6 @@ compromiseNoRepeats(List, Lenght):-
     compromise(SortedList, Lenght).
 
 
-/*
-    Special thanks:
-    https://pro-prof.com/forums/topic/permutation_on_prolog
-*/
-
-
 % Test
 
 factorial(Number, Result):- factorial(Number, 1, Result).
