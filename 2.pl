@@ -187,6 +187,42 @@ compromiseNoRepeats(List, Lenght):-
     sort(List, SortedList),
     compromise(SortedList, Lenght).
 
+% -------- 4 --------
+
+isFib(0):- true, !.
+isFib(1):- true, !.
+isFib(Number):- isFib(Number, 1, 0).
+isFib(Number, Number, _):- true, !.
+isFib(Number, Previous, PrePrevious):-
+    Number > Previous,
+    NewPrevious is Previous + PrePrevious,
+    isFib(Number, NewPrevious, Previous);
+    false, !.
+
+getSortedListForTaskThree(List, ResultList):-
+    include(isFib, List, FibList),
+    sort(FibList, NewFibList),
+    ResultList = NewFibList.
+
+/*
+    Example:
+        ?- startTask4([1,2,3,2,4,5,6,7,8], 4).
+        1 2 3 5
+        1 2 3 8
+        1 2 5 8
+        1 3 5 8
+        2 3 5 8
+*/
+
+% Since there is nothing about repeats in the task description,
+% I decided to do it without repeats.
+startTask4(List, PermutationLength):-
+    % Since we need each elements greater than the previous one,
+    % we can just use compromise instead of partial permutation
+    getSortedListForTaskThree(List, SortedList),
+    compromiseNoRepeats(SortedList, PermutationLength).
+
+
 
 % Test
 
