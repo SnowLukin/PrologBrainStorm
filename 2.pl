@@ -140,6 +140,21 @@ permutation(List):-
     length(List, Length),
     partialPermutation(List, Length).
 
+/*
+    Example:
+        ?- permutationNoRepeats([1,2,2,3]).
+        1 2 3
+        1 3 2
+        2 1 3
+        2 3 1
+        3 1 2
+        3 2 1
+*/
+
+permutationNoRepeats(List):-
+    sort(List, SortedList),
+    permutation(SortedList).
+
 
 /*
     Example:
