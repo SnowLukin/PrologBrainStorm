@@ -87,19 +87,27 @@ fibList([Head|Tail], Counter, Result):-
 
 /*
     Example:
-        ?- partialPermutation([1,2,3],2,X).
-        X = [1, 2] ;
-        X = [1, 3] ;
-        X = [2, 1] ;
-        X = [2, 3] ;
-        X = [3, 1] ;
-        X = [3, 2].
+        ?- partialPermutation([1,2,3],2).
+        1 2
+        1 3
+        2 1
+        2 3
+        3 1
+        3 2
 */
-partialPermutation(_, 0, []):-!.
-partialPermutation(List, PermutationLength, [Head|Tail]):-
+
+writeList([]):- writeln(''), !.
+writeList([Head|Tail]):- write(Head), write(' '), writeList(Tail).
+
+partialPermutation(List, PermutationLength):-
+    partialPermutation(List, PermutationLength, []).
+partialPermutation(_, 0, TempList):-
+    writeList(TempList), !, fail.
+partialPermutation(List, PermutationLength, TempList):-
     select(Head, List, ListTail),
     NewPermutationLength is PermutationLength - 1,
-    partialPermutation(ListTail, NewPermutationLength, Tail).
+    append(TempList, [Head], NewTempList),
+    partialPermutation(ListTail, NewPermutationLength, NewTempList).
 
 /*
     Example:
@@ -111,9 +119,12 @@ partialPermutation(List, PermutationLength, [Head|Tail]):-
         X = [3, 1, 2] ;
         X = [3, 2, 1].
 */
+% There is builtIn function for permutation
+/*
 permutation(List, Permutation):-
     length(List, Length),
     partialPermutation(List, Length, Permutation).
+*/
 
 /*
     Example:
@@ -155,3 +166,21 @@ compromiseWithRepeats(List, CompromiseLength, [Head|ResultListTail]):-
     Special thanks:
     https://pro-prof.com/forums/topic/permutation_on_prolog
 */
+
+
+% Test
+
+factorial(Number, Result):- factorial(Number, 1, Result).
+factorial(0, Mult, Result):- Result is Mult.
+factorial(Number, Mult, Result) :-
+    Number > 0,
+    NewMult is Number * Mult,
+    NewNumber is Number - 1,
+    factorial(NewNumber, NewMult, Result).
+
+countPartialPermutation(List, PartialPermutationLenght, Result):-
+    length(List, ListLenght),
+    factorial(ListLenght, NFactorial),
+    NSubK is ListLenght - PartialPermutationLenght,
+    factorial(NSubK, NKSubFactorial),
+    Result is NFactorial div NKSubFactorial, !.
