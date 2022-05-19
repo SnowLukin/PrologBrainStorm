@@ -109,6 +109,22 @@ partialPermutation(List, PermutationLength, ResultList):-
     append(ResultList, [Head], NewResultList),
     partialPermutation(ListTail, NewPermutationLength, NewResultList).
 
+
+/*
+    Example:
+        ?- partialPermutationNoRepeats([1,2,2,3],2).
+        1 2
+        1 3
+        2 1
+        2 3
+        3 1
+        3 2
+*/
+
+partialPermutationNoRepeats(List, Lenght):-
+    sort(List, SortedList),
+    partialPermutation(SortedList, Lenght).
+
 /*
     Example:
         ?- permutation([1,2,3]).
