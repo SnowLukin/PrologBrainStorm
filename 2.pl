@@ -130,7 +130,7 @@ permutation(List):-
         ?- compromise([1,2,3],2).
         1 2
         1 3
-        2 3 
+        2 3
 */
 
 compromise(List, Lenght):- compromise(List, Lenght, []).
@@ -143,27 +143,18 @@ compromise([Head|Tail], Length, ResultList):-
 compromise([_|Tail], Length, ResultList):-
     compromise(Tail, Length, ResultList).
 
+
 /*
     Example:
-        ?- compromiseWithRepeats([1,2,3],2,X).
-        X = [1, 1] ;
-        X = [1, 2] ;
-        X = [1, 3] ;
-        X = [2, 1] ;
-        X = [2, 2] ;
-        X = [2, 3] ;
-        X = [3, 1] ;
-        X = [3, 2] ;
-        X = [3, 3].
+        ?- compromiseNoRepeats([1,2,2,3],2).
+        1 2
+        1 3
+        2 3
 */
-/*
-compromiseWithRepeats(_, 0, ResultList):-
-    writeList(ResultList), !, fail.
-compromiseWithRepeats(List, CompromiseLength, [Head|ResultListTail]):-
-    member(Head, List),
-    NewCompromiseLength is CompromiseLength - 1,
-    compromiseWithRepeats(List, NewCompromiseLength, ResultListTail).
-*/
+
+compromiseNoRepeats(List, Lenght):-
+    sort(List, SortedList),
+    compromise(SortedList, Lenght).
 
 
 /*
