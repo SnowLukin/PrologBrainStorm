@@ -99,8 +99,10 @@ fibList([Head|Tail], Counter, Result):-
 writeList([]):- writeln(''), !.
 writeList([Head|Tail]):- write(Head), write(' '), writeList(Tail).
 
+% No Repeats
 partialPermutation(List, PermutationLength):-
-    partialPermutation(List, PermutationLength, []).
+    sort(List, SortedList),
+    partialPermutation(SortedList, PermutationLength, []).
 partialPermutation(_, 0, ResultList):-
     writeList(ResultList), !, fail.
 partialPermutation(List, PermutationLength, ResultList):-
@@ -108,22 +110,6 @@ partialPermutation(List, PermutationLength, ResultList):-
     NewPermutationLength is PermutationLength - 1,
     append(ResultList, [Head], NewResultList),
     partialPermutation(ListTail, NewPermutationLength, NewResultList).
-
-
-/*
-    Example:
-        ?- partialPermutationNoRepeats([1,2,2,3],2).
-        1 2
-        1 3
-        2 1
-        2 3
-        3 1
-        3 2
-*/
-
-partialPermutationNoRepeats(List, Lenght):-
-    sort(List, SortedList),
-    partialPermutation(SortedList, Lenght).
 
 /*
     Example:
