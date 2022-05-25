@@ -150,7 +150,9 @@ permutationNoRepeats(List):-
         2 3
 */
 
-compromise(List, Lenght):- compromise(List, Lenght, []).
+compromise(List, Lenght):-
+    sort(List, SortedList),
+    compromise(SortedList, Lenght, []).
 compromise(_, 0, ResultList):-
     writeList(ResultList), !, fail.
 compromise([Head|Tail], Length, ResultList):-
@@ -159,19 +161,6 @@ compromise([Head|Tail], Length, ResultList):-
     compromise(Tail, NewLength, NewResultList).
 compromise([_|Tail], Length, ResultList):-
     compromise(Tail, Length, ResultList).
-
-
-/*
-    Example:
-        ?- compromiseNoRepeats([1,2,2,3],2).
-        1 2
-        1 3
-        2 3
-*/
-
-compromiseNoRepeats(List, Lenght):-
-    sort(List, SortedList),
-    compromise(SortedList, Lenght).
 
 % -------- 4 --------
 
